@@ -1,4 +1,4 @@
-# minimal_calci
+# calci-app
 
 A minimal calculator UI built with HTML, CSS, and a small inline script.
 
