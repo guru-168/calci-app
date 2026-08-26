@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page" aria-label="Minimal calculator interface">
+    <section class="calculator" aria-label="Calculator">
+      <output class="display" aria-label="Calculator display" id="display">0</output>
+
+      <div class="keys" aria-label="Calculator buttons">
+        <button type="button" class="key utility">AC</button>
+        <button type="button" class="key utility">+/-</button>
+        <button type="button" class="key utility">%</button>
+        <button type="button" class="key operator">/</button>
+
+        <button type="button" class="key">7</button>
+        <button type="button" class="key">8</button>
+        <button type="button" class="key">9</button>
+        <button type="button" class="key operator">x</button>
+
+        <button type="button" class="key">4</button>
+        <button type="button" class="key">5</button>
+        <button type="button" class="key">6</button>
+        <button type="button" class="key operator">-</button>
+
+        <button type="button" class="key">1</button>
+        <button type="button" class="key">2</button>
+        <button type="button" class="key">3</button>
+        <button type="button" class="key operator">+</button>
+
+        <button type="button" class="key zero">0</button>
+        <button type="button" class="key">.</button>
+        <button type="button" class="key equals">=</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const display = document.getElementById("display");
+    const keys = document.querySelector(".keys");
+    let value = "0";
+    let stored = null;
+    let operator = null;
+    let waiting = false;
+
+    function update() {
+      display.textContent = value;
+    }
+
+    function calculate(a, op, b) {
+      if (op === "+") return a + b;
+      if (op === "-") return a - b;
+      if (op === "x") return a * b;
+      if (op === "/") return b === 0 ? "Error" : a / b;
+      return b;
+    }
+
+    keys.addEventListener("click", (event) => {
+      const key = event.target.closest("button");
+      if (!key) return;
+
+      const input = key.textContent;
+
+      if (Number.isInteger(Number(input))) {
+        value = value === "0" || waiting ? input : value + input;
+        waiting = false;
+      } else if (input === "." && !value.includes(".")) {
+        value += ".";
+        waiting = false;
+      } else if (input === "AC") {
+        value = "0";
+        stored = null;
+        operator = null;
+        waiting = false;
+      } else if (input === "+/-") {
+        value = value === "0" ? value : String(Number(value) * -1);
+      } else if (input === "%") {
+        value = String(Number(value) / 100);
+      } else if (["+", "-", "x", "/"].includes(input)) {
+        stored = Number(value);
+        operator = input;
+        waiting = true;
+      } else if (input === "=" && operator) {
+        const result = calculate(stored, operator, Number(value));
+        value = typeof result === "number" ? String(Number(result.toFixed(10))) : result;
+        stored = null;
+        operator = null;
+        waiting = true;
+      }
+
+      update();
+    });
+  </script>
+</body>
+</html>

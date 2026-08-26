@@ -1,0 +1,156 @@
+:root {
+  color-scheme: light;
+  --page: #f4f4f1;
+  --surface: #fbfaf7;
+  --surface-dark: #ece9e2;
+  --line: #d4d0c7;
+  --text: #191919;
+  --muted: #59564f;
+  --accent: #2f6f68;
+  --accent-press: #245a54;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--text);
+}
+
+button {
+  font: inherit;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.calculator {
+  width: min(100%, 304px);
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgb(25 25 25 / 0.08);
+}
+
+.display {
+  display: block;
+  min-height: 78px;
+  margin-bottom: 12px;
+  padding: 17px 13px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #ffffff;
+  color: var(--text);
+  font-size: 2.35rem;
+  font-weight: 500;
+  line-height: 1;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.key {
+  min-width: 0;
+  height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #ffffff;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 520;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.key:hover {
+  background: #f7f6f2;
+}
+
+.key:active {
+  background: var(--surface-dark);
+  transform: translateY(1px);
+}
+
+.key:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.utility {
+  color: var(--muted);
+  background: #f4f2ed;
+}
+
+.operator {
+  color: var(--accent);
+  background: #eef4f2;
+  border-color: #bdd0cb;
+}
+
+.equals {
+  color: #ffffff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.operator:hover {
+  background: #e6efed;
+}
+
+.equals:hover {
+  background: #2a655f;
+}
+
+.operator:active,
+.equals:active {
+  background: var(--accent-press);
+}
+
+.zero {
+  grid-column: span 2;
+}
+
+@media (max-width: 360px) {
+  .page {
+    padding: 16px;
+  }
+
+  .calculator {
+    padding: 12px;
+  }
+
+  .display {
+    min-height: 72px;
+    font-size: 2.05rem;
+  }
+
+  .keys {
+    gap: 7px;
+  }
+
+  .key {
+    height: 50px;
+    border-radius: 6px;
+  }
+}
